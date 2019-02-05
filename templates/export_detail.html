@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>SocialCops</title>
+</head>
+
+<body>
+    <h3>Upload File</h3>
+    <p>"Hello!. This is 2nd API from the set of 3 APIs I made for your assignment"</p><br>
+    <h3>Export File</h3>
+    <form action="{% url 'export' %}" method="post" id="form2" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="panel panel-primary">
+            <input type="text" name="type" id="type" autocomplete="off" placeholder="Field type">
+            <input type="text" name="value" id="value" autocomplete="off" placeholder="Field Value">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+    <br>
+    <a href="{% url 'stop' %}"><button type="button" class="btn btn-dark">Stop Export</button></a>
+</body>
+
+</html>
