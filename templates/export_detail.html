@@ -13,9 +13,12 @@
     <form action="{% url 'export' %}" method="post" id="form2" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="panel panel-primary">
-            <input type="text" name="type" id="type" autocomplete="off" placeholder="Field type">
-            <input type="text" name="value" id="value" autocomplete="off" placeholder="Field Value">
-            <input type="submit" value="Submit">
+            {{FILTER BY ANY ONE FIELD:}}
+            {{"NAME:"}}<input type="text" name="name" id="name" autocomplete="off" placeholder="Name"><br><br>
+            {{"PRICE:"}}<input type="text" name="price" id="price" autocomplete="off" placeholder="Price"><br><br>
+            {{"START DATE:"}}<input type="text" name="startdate" id="startdate" autocomplete="off" placeholder="Start date">
+            {{"END DATE:"}}<input type="text" name="enddate" id="enddate" autocomplete="off" placeholder="End date"><br><br>
+            <input type="submit" value="Submit Details">
         </div>
     </form>
     <br>
