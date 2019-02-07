@@ -41,12 +41,13 @@ Technologies used:
 [(Back to top)](#introduction)
 
 
-This API upload the CSV file to the database with the uploading progress bar.
+This API upload the CSV file to the database(here MongoDB). In this 'tqdm' python module is used to show the uploading progress bar.
 
 API - `http://127.0.0.1:8000/upload`
 
 Methods : GET, POST
 
+![Uploading CSV with progress bar](https://user-images.githubusercontent.com/30694592/52427696-7567cf80-2b26-11e9-87b7-4c22e1d9858c.png)
 
   ### API Response
    ```
@@ -55,27 +56,33 @@ Methods : GET, POST
     {"code": "1", "Message": "Succesfully added data to database", "status": "success"}
     
 ```     
-   
+![Successful Upload Response](https://user-images.githubusercontent.com/30694592/52428112-59186280-2b27-11e9-9d4e-c14f6a551e21.jpeg)
   
+
+
 
 ## 2. API to Stop the Upload or Export
 [(Back to top)](#introduction)
 
-1. This API will Stop the Upload/Export irrespective of the remaining progress without uploading/exportins data to database/CSV File and render back to Upload page to upload/export new file.
+This API will Stop the Upload/Export irrespective of the remaining progress without uploading/exporting data to database/CSV File and render back to Upload page to upload/export new file.
 
 API - `http://127.0.0.1:8000/stop`
 
 Methods : GET, POST
+
+![Stop Upload/Export Response](https://user-images.githubusercontent.com/30694592/52427944-02128d80-2b27-11e9-9267-af31352c1969.png)
 
 ### API Response
    ```
     {"code": "0", "Message": "Fail to process/Force stopped", "status": "fail"}   
  ```
 
+
+
 ## 3. API to export filtered data to CSV 
 [(Back to top)](#introduction)
 
-This API exports the data to CSV file. It contains the specific fields. Using one of the filter we can filter the data from a database in small segments.
+This API exports the data to CSV file. It contains the specific filters using them we can filter the data from a database in small segments sothat termination of the export becomes easy.
 
 API : `http://127.0.0.1:8000/export?<filters>=<filtervalues>`
 
@@ -133,7 +140,7 @@ http://127.0.0.1:8000/export?price=gte-200
 http://127.0.0.1:8000/export?startdate=2019-01-01&name=US&price=gte-200&enddate=2019-03-01
 
 ```
-
+![CSV Export with Filters](https://user-images.githubusercontent.com/30694592/52428021-279f9700-2b27-11e9-95e8-276869431255.png)
 
 ### API Response
 If the request to the API is sent, it downloads a CSV file containing data based on filters.
