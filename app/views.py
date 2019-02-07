@@ -18,6 +18,7 @@ def home(request):
     db.test.remove({})
     return render(request,'upload.html')
 
+@csrf_exempt
 def check_new_entry(request):
     if request.method == 'POST':
         files = request.FILES['datafile']
@@ -51,11 +52,14 @@ def check_new_entry(request):
         except Exception as e:
             return HttpResponse(e)
 
+@csrf_exempt
 def stop_csv(request):
     global flag
     flag = True
     if request.method == 'POST':
-        return render(request,'upload.html')
+         return JsonResponse( {'code': '0',
+							'Message':'Fail to process/Force stopped',
+							'status': 'fail'})
     else:
         return JsonResponse( {'code': '0',
 							'Message':'Fail to process/Force stopped',
@@ -64,6 +68,7 @@ def stop_csv(request):
 def export_details(request):
     return render(request,'export_detail.html')
 
+@csrf_exempt
 def get_csv_export(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -90,7 +95,7 @@ def get_csv_export(request):
         else:
             if(name is not None):
                 count = count + dbt.count({'country' : str(name)})
-            elif(price is not None):
+            if(price is not None):
                 filters = price[0]+price[1]+price[2]
                 price1 = price[4:]
                 if(filters == 'gte'):
@@ -99,7 +104,7 @@ def get_csv_export(request):
                     count = count + dbt.count({'price':{'$lte':price1}})
                 elif(filters == 'eqt'):
                     count = count + dbt.count({'price':{'$eq':price1}})
-            elif(startdate is not None and enddate is not None):
+            if(startdate is not None and enddate is not None):
                 startdate1 = datetime.strptime(startdate, "%Y-%m-%d")
                 enddate1 = datetime.strptime(enddate, "%Y-%m-%d")
                 enddate1 = enddate1.replace(minute=59, hour=23, second=59)
@@ -121,13 +126,13 @@ def get_csv_export(request):
         for j in tqdm(range(0,int(count/limit)+1),total=int(count/limit)):
             if(flag == True):
                 break
-            if(name is None and (startdate is None and enddate is None) and price is None):
+            if(name is None and startdate is None and enddate is None and price is None):
                 res = dbt.find({}).limit(limit).skip(limit*j)
             else:
                 if(name is not None):
                     res1 = dbt.find({'country' : str(name)}).limit(limit).skip(limit*j)
                     a = [item for item in res1]   
-                elif(price is not None):
+                if(price is not None):
                     filters = price[0]+price[1]+price[2]
                     price1 = price[4:]
                     if(filters == 'gte'):
@@ -137,7 +142,7 @@ def get_csv_export(request):
                     elif(filters == 'eqt'):
                         res2 = dbt.find({'price':{'$eq': price1}}).limit(limit).skip(limit*j)
                     b = [item for item in res2] 
-                elif(startdate is not None and enddate is not None):
+                if(startdate is not None and enddate is not None):
                     startdate1 = datetime.strptime(startdate, "%Y-%m-%d")
                     enddate1 = datetime.strptime(enddate, "%Y-%m-%d")
                     enddate1 = enddate1.replace(minute=59, hour=23, second=59)

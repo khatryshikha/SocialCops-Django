@@ -1,0 +1,22 @@
+version: '3.6'
+
+services:
+  web:
+    build: .
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000"
+    container_name: SocialCops
+    volumes:
+      - .:/SocialCops
+    ports:
+      - "8000:8000"
+    links:
+      - mongo
+
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - /mongo:/data/db
+    ports:
+      - "27017:27017"
