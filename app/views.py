@@ -14,6 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 flag = []
+@csrf_exempt
 def home(request):
     db.test.remove({})
     return render(request,'upload.html')
@@ -22,35 +23,35 @@ def home(request):
 def check_new_entry(request):
     if request.method == 'POST':
         files = request.FILES['datafile']
-        try:   
-            with open(str(files),"r",) as fl:
-                spamreader = csv.reader(codecs.iterdecode(files, 'utf-8'))
-                row_count = sum(1 for row in fl )
-            count = 0
-            data = []
-            head_list = []
-            global flag
-            flag = False
-            print('Processing the Upload')
-            iterator = tqdm(spamreader,total=row_count)
-            for row in iterator:
-                time.sleep(0.1)
-                if(flag == True):
-                    break
-                if ( count == 0 ):
-                    head_list = row
-                    count = count + 1
-                else: 
-                    data.append(dict(zip(head_list, row)))
-                    count= count +1
-            print("Complete/Finish")
-            if(flag == False):
-                db.test.insert(data)
-            return JsonResponse( {'code': '1',
-                            'Message':'Succesfully added data to database',
-                            'status': 'success'})
-        except Exception as e:
-            return HttpResponse(e)
+    try:   
+        with open(str(files),"r",) as fl:
+            spamreader = csv.reader(codecs.iterdecode(files, 'utf-8'))
+            row_count = sum(1 for row in fl )
+        count = 0
+        data = []
+        head_list = []
+        global flag
+        flag = False
+        print('Processing the Upload')
+        iterator = tqdm(spamreader,total=row_count)
+        for row in iterator:
+            time.sleep(0.1)
+            if(flag == True):
+                break
+            if ( count == 0 ):
+                head_list = row
+                count = count + 1
+            else: 
+                data.append(dict(zip(head_list, row)))
+                count= count +1
+        print("Complete/Finish")
+        if(flag == False):
+            db.test.insert(data)
+        return JsonResponse( {'code': '1',
+                        'Message':'Succesfully added data to database',
+                        'status': 'success'})
+    except Exception as e:
+        return HttpResponse(e)
 
 @csrf_exempt
 def stop_csv(request):
@@ -64,7 +65,7 @@ def stop_csv(request):
         return JsonResponse( {'code': '0',
 							'Message':'Fail to process/Force stopped',
 							'status': 'fail'})
-
+@csrf_exempt
 def export_details(request):
     return render(request,'export_detail.html')
 
@@ -81,6 +82,11 @@ def get_csv_export(request):
         enddate = request.GET.get('enddate')
         price = request.GET.get('price')
     try:
+        if(name == ""): name=None
+        if(price == ""): price=None
+        if(startdate == ""): startdate=None
+        if(enddate == ""): enddate=None
+    
         dbt = db.test
         count = 0
         buffer = io.StringIO()
@@ -121,7 +127,6 @@ def get_csv_export(request):
         res = []
         global flag
         flag = False
-        # max_count = dbt.count()
         print('Processing the CSV Export in the chuncks of 10 values each time.')
         for j in tqdm(range(0,int(count/limit)+1),total=int(count/limit)):
             if(flag == True):
@@ -131,7 +136,8 @@ def get_csv_export(request):
             else:
                 if(name is not None):
                     res1 = dbt.find({'country' : str(name)}).limit(limit).skip(limit*j)
-                    a = [item for item in res1]   
+                    a = [item for item in res1] 
+
                 if(price is not None):
                     filters = price[0]+price[1]+price[2]
                     price1 = price[4:]
@@ -160,17 +166,7 @@ def get_csv_export(request):
                     res3 = dbt.find({'date':{'$lte':str(enddate1)}}).limit(limit).skip(limit*j) 
                     c = [item for item in res3]   
 
-            res = a+b+c
-            # seen = set()
-            # result = []
-            # for d in res:
-            #     t = tuple(d.items())
-            #     if t not in seen:
-            #         seen.add(t)
-            #         result.append(d)
-            # print(result)
-            # if(res == [] or limit*j>=max_count-1):
-            #     break
+                res = a+b+c
             for value in res:
                 wr.writerow(value.values())
 

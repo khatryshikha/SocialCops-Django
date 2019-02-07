@@ -45,7 +45,7 @@ This API upload the CSV file to the database(here MongoDB). In this 'tqdm' pytho
 
 API - `http://127.0.0.1:8000/upload`
 
-Methods : GET, POST
+Methods : POST
 
 ![Uploading CSV with progress bar](https://user-images.githubusercontent.com/30694592/52427696-7567cf80-2b26-11e9-87b7-4c22e1d9858c.png)
 
@@ -144,3 +144,7 @@ http://127.0.0.1:8000/export?startdate=2019-01-01&name=US&price=gte-200&enddate=
 
 ### API Response
 If the request to the API is sent, it downloads a CSV file containing data based on filters.
+
+
+** data.csv file contains the date column, contains data of 26 rows.
+** testdata.csv and winedata are large files but doen't conatin date column.
