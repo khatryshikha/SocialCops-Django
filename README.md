@@ -47,7 +47,8 @@ API - `http://127.0.0.1:8000/upload`
 
 Methods : POST
 
-![Uploading CSV with progress bar](https://user-images.githubusercontent.com/30694592/52427696-7567cf80-2b26-11e9-87b7-4c22e1d9858c.png)
+![Uploading CSV with progress bar](https://user-images.githubusercontent.com/30694592/52474215-d1c9fe00-2bbd-11e9-81c5-68c7f0d6dd11.jpg)
+
 
   ### API Response
    ```
@@ -58,7 +59,7 @@ Methods : POST
 ```     
 ![Successful Upload Response](https://user-images.githubusercontent.com/30694592/52428112-59186280-2b27-11e9-9d4e-c14f6a551e21.jpeg)
   
-
+NOTE : This route `http://127.0.0.1:8000/clear` is used to clear the database. 
 
 
 ## 2. API to Stop the Upload or Export

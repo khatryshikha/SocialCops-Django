@@ -179,7 +179,10 @@ def get_csv_export(request):
             return HttpResponse(e)
 
 
-
+@csrf_exempt
+def clear_db(request):
+    db.test.remove({})
+    return render(request,'upload.html')
     
 
 

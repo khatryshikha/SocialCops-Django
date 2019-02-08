@@ -8,7 +8,7 @@
 
 <body>
     <h3>Upload File</h3>
-    <p>"Hello!. This is 1st API from the set of 3 APIs I made for your assignment"</p><br>
+    <p>"Hello!. These are the set of 3 APIs I made for your assignment"</p><br>
     <form action="upload" method="post" id="form1" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="panel panel-primary">
@@ -19,6 +19,7 @@
     <br>
     <a href="{% url 'stop' %}"><button type="button" class="btn btn-dark">Stop Upload</button></a>
     <a href="{% url 'export_details' %}"><button type="button" class="btn btn-dark">Export</button></a>
+    <a href="{% url 'clear' %}"><button type="button" class="btn btn-dark">Clear DB</button></a>
 </body>
 
 </html>

@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^stop', views.stop_csv, name ='stop'),
     url(r'^export_details', views.export_details, name ='export_details'),
     url(r'^export', views.get_csv_export, name ='export'),
+    url(r'^clear', views.clear_db, name ='clear'),
 ]
