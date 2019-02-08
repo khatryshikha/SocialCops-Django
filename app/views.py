@@ -21,37 +21,37 @@ def home(request):
 
 @csrf_exempt
 def check_new_entry(request):
-    if request.method == 'POST':
-        files = request.FILES['datafile']
-    try:   
-        with open(str(files),"r",) as fl:
-            spamreader = csv.reader(codecs.iterdecode(files, 'utf-8'))
-            row_count = sum(1 for row in fl )
-        count = 0
-        data = []
-        head_list = []
-        global flag
-        flag = False
-        print('Processing the Upload')
-        iterator = tqdm(spamreader,total=row_count)
-        for row in iterator:
-            time.sleep(0.1)
-            if(flag == True):
-                break
-            if ( count == 0 ):
-                head_list = row
-                count = count + 1
-            else: 
-                data.append(dict(zip(head_list, row)))
-                count= count +1
-        print("Complete/Finish")
-        if(flag == False):
-            db.test.insert(data)
-        return JsonResponse( {'code': '1',
-                        'Message':'Succesfully added data to database',
-                        'status': 'success'})
+    try:
+        if request.method == 'POST':
+            files = request.FILES['datafile']   
+            with open(str(files),"r",) as fl:
+                spamreader = csv.reader(codecs.iterdecode(files, 'utf-8'))
+                row_count = sum(1 for row in fl )
+            count = 0
+            data = []
+            head_list = []
+            global flag
+            flag = False
+            print('Processing the Upload')
+            iterator = tqdm(spamreader,total=row_count)
+            for row in iterator:
+                time.sleep(0.1)
+                if(flag == True):
+                    break
+                if ( count == 0 ):
+                    head_list = row
+                    count = count + 1
+                else: 
+                    data.append(dict(zip(head_list, row)))
+                    count= count +1
+            print("Complete/Finish")
+            if(flag == False):
+                db.test.insert(data)
+            return JsonResponse( {'code': '1',
+                            'Message':'Succesfully added data to database',
+                            'status': 'success'})
     except Exception as e:
-        return HttpResponse(e)
+        return HttpResponse({"ERROR : ",e})
 
 @csrf_exempt
 def stop_csv(request):
@@ -176,7 +176,7 @@ def get_csv_export(request):
         response['Content-Disposition'] = 'attachment; filename=csv_export.csv'
         return response
     except Exception as e:
-            return HttpResponse(e)
+        return HttpResponse({"ERROR : ",e})
 
 
 @csrf_exempt
