@@ -13,9 +13,9 @@ GitHub Repository Link : https://github.com/khatryshikha/SocialCops-Django
 
 
 The solution set of Rest API endpoints to pause/stop/terminate the long-running task once triggered which require long time and resources on the servers. It is a set of 3 APIs-
-1. [API for Upload CSV ](#1.-api-for-uploading-csv-file)
-2. [API to Stop the Upload or Export](#2.-api-to-stop-the-upload-or-export)
-3. [API to export filtered data  to CSV](#3.-api-to-export-filtered-data-to-csv )
+1. [API for Upload CSV ](#1-api-for-uploading-csv-file)
+2. [API to Stop the Upload or Export](#2-api-to-stop-the-upload-or-export)
+3. [API to export filtered data  to CSV](#3-api-to-export-filtered-data-to-csv )
 
 Technologies used:
 -----------------------------
@@ -28,9 +28,9 @@ Technologies used:
 
 - [Installation Instructions](#installation-instructions)
 - [Run in Docker Container](#run-in-a-docker-container)
-- [API 1 - API for Upload CSV with Stop feature](#1.-api-for-uploading-csv-file)
-- [API 2 - API to Stop the Upload or Export](#2.-api-to-stop-the-upload-or-export)
-- [API 3 - API to export filtered data to CSV with a stop feature](#3.-api-to-export-filtered-data-to-csv )
+- [API 1 - API for Upload CSV with Stop feature](#1-api-for-uploading-csv-file)
+- [API 2 - API to Stop the Upload or Export](#2-api-to-stop-the-upload-or-export)
+- [API 3 - API to export filtered data to CSV with a stop feature](#3-api-to-export-filtered-data-to-csv )
   
 ## Installation Instructions
 -----------------------------
