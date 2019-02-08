@@ -1,7 +1,7 @@
 # SocialCops-Django
 
 ## Important Links:
------------------------------
+
 
 Postman Collection of all the endpoints with valid request/responses :
 https://documenter.getpostman.com/view/5364090/Rztpp75A
@@ -10,7 +10,7 @@ GitHub Repository Link : https://github.com/khatryshikha/SocialCops-Django
 
 
 ## Introduction 
------------------------------
+
 
 The solution set of Rest API endpoints to pause/stop/terminate the long-running task once triggered which require long time and resources on the servers. It is a set of 3 APIs-
 1. [API for Upload CSV ](#1.-api-for-uploading-csv-file)
@@ -25,7 +25,7 @@ Technologies used:
 
   
 ## Move To
------------------------------
+
 - [Installation Instructions](#installation-instructions)
 - [Run in Docker Container](#run-in-a-docker-container)
 - [API 1 - API for Upload CSV with Stop feature](#1.-api-for-uploading-csv-file)
@@ -47,7 +47,7 @@ Technologies used:
 
 
 ## Run in a Docker Container
------------------------------
+
 
 If you wish to view a sneak peek of the Systers VMS, you may use Docker to
 preview the VMS.
@@ -65,7 +65,7 @@ preview the VMS.
      
 
 ## 1. API for Uploading CSV file
------------------------------
+
 [(Back to top)](#introduction)
 
 
@@ -91,7 +91,7 @@ NOTE : This route `http://127.0.0.1:8000/clear` is used to clear the database.
 
 
 ## 2. API to Stop the Upload or Export
------------------------------
+
 [(Back to top)](#introduction)
 
 This API will Stop the Upload/Export irrespective of the remaining progress without uploading/exporting data to database/CSV File and render back to Upload page to upload/export new file.
@@ -110,7 +110,7 @@ Methods : GET, POST
 
 
 ## 3. API to export filtered data to CSV 
------------------------------
+
 [(Back to top)](#introduction)
 
 This API exports the data to CSV file. It contains the specific filters using them we can filter the data from a database in small segments sothat termination of the export becomes easy.
